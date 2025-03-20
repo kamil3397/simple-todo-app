@@ -10,7 +10,7 @@ export const TodoList: React.FC<TodoListProps> = ({todos, toggleTodo, deleteTodo
 
     return(
         <>
-        {todos.length >= 0 ? <h5>Click checkbox if u completed the task</h5> : null }
+        <h5>Click checkbox if u completed the task</h5>
         
         <ul>
             {todos.map(({id, text, completed})=>(
