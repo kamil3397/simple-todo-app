@@ -14,14 +14,12 @@ export const TodoApp: React.FC = () => {
 
   const addTodo = async (text: string) => {
     try {
-      const response = await axios.post("http://localhost:4000/tasks/add", {
-        text: text,
+      await axios.post<Todo>("http://localhost:4000/tasks/add", {
+        text,
         completed: false
-      });
-      
-      const newTodo: Todo = response.data;
-      
-      setTodos(prevTodos => [...prevTodos, newTodo]);
+      }) .then(({data})=>{
+        setTodos(prevTodos=>[...prevTodos, data])
+      })
     } catch (error) {
       console.error("Błąd podczas dodawania zadania:", error);
     }
@@ -38,13 +36,11 @@ export const TodoApp: React.FC = () => {
   };
   
   const fetchTodos = async()=>{
-    try{
-     const res = await axios.get("http://localhost:4000/tasks/")
-      const fetchedTodos:Todo[] = res.data
-      setTodos(fetchedTodos)
-    } catch(err){
-      console.error('Błąd podczas pobierania todos', err)
-    }
+      await axios.get<Todo[]>("http://localhost:4000/tasks")
+
+      .then(({data})=> setTodos(data))
+
+      .catch((err)=> console.error('Błąd podczas pobierania todos', err))
   }
 
   const toggleTodo = (id: string) => {
@@ -67,17 +63,3 @@ useEffect(()=>{
     </div>
   );
 };
-
-
-// const addTodo = (text: string) => {
-//   const newTodo: Todo ={
-//     id: Date.now(),
-//     text: text,
-//     completed: false
-//   }
-
-// const deleteTodo = (id: string) => {
-//   setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
-// };
-
-// wypchnij to na jakies nowe repo i mnie dodaj i zrob pr
