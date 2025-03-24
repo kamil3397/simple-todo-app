@@ -2,8 +2,8 @@ import { Todo } from "./TodoApp"
 
 interface TodoListProps{
     todos: Todo[]
-    toggleTodo: (id: number) => void
-    deleteTodo: (id: number)=> void
+    toggleTodo: (id: string) => void
+    deleteTodo: (id: string)=> void
 }
 export const TodoList: React.FC<TodoListProps> = ({todos, toggleTodo, deleteTodo})=>{
  if (todos.length === 0) return <p>No todos yet</p>
